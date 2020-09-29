@@ -1,18 +1,23 @@
-console.log("Example is up now..")
+const express = require('express')
+const app = express()
 var Twit = require('twit');
 var config = require('./config')
 var T = new Twit(config);
 var tweet = {
-    status: 'hello world!!' }
+    status: 'Happy Birthday' }
 
-T.post('statuses/update', tweet, tweeted)
+app.post('/create', function (req, res) {
 
-function tweeted(err, data, response) {
-    if(err){
-        console.log("Something went wrong!");
-        console.log(response.toString())
-    }
-    else{
-        console.log("Voila It worked!");
-    }
-}
+    T.post('statuses/update', tweet, function tweeted(err, data, response){
+        if(err){
+            console.log("Something went wrong!");
+            res.send(err.toString())
+        }
+        else{
+            res.send("Message posted successfully")
+            console.log("Successfully posted");
+        }
+    })
+})
+
+app.listen(3000)
