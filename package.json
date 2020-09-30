@@ -1,15 +1,23 @@
 {
-  "name": "twitter_integration",
+  "name": "anu-twitter-retrieve",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Gunjan Srivastava",
+  "keywords": [
+    "get",
+    "tweets"
+  ],
+  "author": "Anupama Kurudi",
   "license": "ISC",
   "dependencies": {
+    "@types/date-fns": "^2.6.0",
+    "date-fns": "^2.16.1",
     "express": "^4.17.1",
+    "fetch-timeline": "^1.2.0",
     "twit": "^2.2.11"
   }
 }
