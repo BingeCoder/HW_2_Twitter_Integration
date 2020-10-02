@@ -1,15 +1,17 @@
 {
   "name": "twitter_integration",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Twitter Web services for add, retrieve and delete tweets.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "",
+    "test": ""
   },
-  "author": "Gunjan Srivastava",
-  "license": "ISC",
+  "author": "Binge Coders",
   "dependencies": {
     "express": "^4.17.1",
     "twit": "^2.2.11"
+  },
+  "devDependencies": {
+    "jasmine": "^3.6.1"
   }
 }
