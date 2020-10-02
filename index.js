@@ -2,7 +2,6 @@
 var Twit = require('twit');
 var opts = require('./config');
 const fetchTimeline = require('fetch-timeline');
-var container = document.getElementById('container');
  
 const params = {
   screenName: 'GunjanS40215131'
