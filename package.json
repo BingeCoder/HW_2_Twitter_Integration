@@ -9,7 +9,10 @@
   "author": "Binge Coders",
   "dependencies": {
     "express": "^4.17.1",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "@types/date-fns": "^2.6.0",
+    "date-fns": "^2.16.1",
+    "fetch-timeline": "^1.2.0"
   },
   "devDependencies": {
     "jasmine": "^3.6.1"
