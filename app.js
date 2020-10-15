@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const config = require('./config');
 const deleteTweet = require('./js/delete');
 const postTweet = require('./js/post');
+const retrieveTweets = require('./js/retrieve');
 
 const app = express()
 
@@ -29,6 +30,17 @@ app.delete('/delete/:id', (req, res) => {
         res.sendStatus(response.statusCode);
     },(error)=>{
         res.send(error.body);
+    });
+});
+
+app.get('/get', (req, res) => {
+    retrieveTweets().then((response)=>{
+        res.send(JSON.stringify(response));
+    },(error)=>{
+        res.statusCode = error.statusCode;
+        res.send(JSON.stringify(error));
+    }).catch(() => {
+        res.send();
     });
 });
 

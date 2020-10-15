@@ -1,30 +1,51 @@
 /*
  @author Gunjan Srivastava
  */
-(function(){
-    const postTweetBtn = $('#postTweetBtn');
-    const postMessage = $('#postMessage');
-    const responseMsg = $('#responseMsg');
-    postTweetBtn.click(postTweetHandler)
-    /*
+(function () {
+  const postTweetBtn = $("#postTweetBtn");
+  const postMessage = $("#postMessage");
+  const responseMsg = $("#responseMsg");
+  postTweetBtn.click(postTweetHandler);
+  /*
     Post a tweet on the twitter wall
     Retrieve message from {postMessage} constant
      */
-    function postTweetHandler(){
-        const message = postMessage.val();
-        fetch('/post' , {
-            method : 'post',
-            body : JSON.stringify({status:message}),
-            headers: {
-            'content-type': 'application/json'
+  function postTweetHandler() {
+    const message = postMessage.val();
+    fetch("/post", {
+      method: "post",
+      body: JSON.stringify({ status: message }),
+      headers: {
+        "content-type": "application/json",
+      },
+    }).then(function (response) {
+      if (response.status == 200) {
+        responseMsg.text("Post Tweeted Successfully");
+      } else {
+        responseMsg.text("Error occurred:" + response.statusText);
+      }
+    });
+  }
+
+  /*
+ @author Anupama Kurudi
+ */
+  const getTweetBtn = $("#getTweetBtn");
+  getTweetBtn.click(getTweetsHandler);
+  function getTweetsHandler() {
+    fetch("/get")
+      .then((response) => response.json())
+      .then((data) => {
+        let userHTML = `<h3>User Meta</h3><img src="${data[0].profile_image_url}"/><p><strong>Name:</strong> ${data[0].name} <strong>Twitter Handle: ${data[0].screen_name}</strong></p>`;
+        let html = "<h3>Tweets</h3>";
+        for (let tweet of data) {
+          html += `<p><strong>Tweet:</strong> ${tweet.text} <strong>Created At</strong>:${tweet.created_at}</p>`;
         }
-        }).then(function(response){
-            if(response.status == 200){
-                responseMsg.text('Post Tweeted Successfully');
-            }
-            else{
-                responseMsg.text('Error occurred:'+response.statusText);
-            }
-        });
-    }
+        $("#username").html(userHTML)
+        $("#tweets").html(html);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 })();
