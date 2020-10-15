@@ -18,7 +18,7 @@
       headers: {
         "content-type": "application/json",
       },
-    }).then(function (response) {
+    }).then(function (response) {      
       if (response.status == 200) {
         responseMsg.text("Post Tweeted Successfully");
       } else {
@@ -27,6 +27,7 @@
     });
   }
 
+  var retrievedTweets;
   /*
  @author Anupama Kurudi
  */
@@ -36,6 +37,8 @@
     fetch("/get")
       .then((response) => response.json())
       .then((data) => {
+        console.log(JSON.stringify(data));
+        retrievedTweets = data;
         let userHTML = `<h3>User Meta</h3><img src="${data[0].profile_image_url}"/><p><strong>Name:</strong> ${data[0].name} <strong>Twitter Handle: ${data[0].screen_name}</strong></p>`;
         let html = "<h3>Tweets</h3>";
         for (let tweet of data) {
@@ -48,4 +51,25 @@
         console.log(err);
       });
   }
+
+  //Deletion of Tweet
+  /**
+   * @author Shivam Tomar
+   */
+  const deleteTweetBtn = $("#deleteTweetBtn");
+  const deleteClickHandler = () => {
+    console.log(JSON.stringify(retrievedTweets));
+    fetch("/delete/1", {
+      method: "delete"    
+    })
+    .then((response) => {
+      if(response && response == 200){        
+        alert("Oldest Tweet delete success.");
+      }
+      else {
+        alert("Oldest Tweet delete failure.");
+      }
+    });
+  };
+  deleteTweetBtn.click(deleteClickHandler);
 })();

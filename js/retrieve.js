@@ -12,11 +12,12 @@ const retrieveTweets = () => {
       } else {
         let results = [];
         for(let tweets of data) {
-          let {text, created_at} = tweets;
+          let {text, created_at, id_str} = tweets;
           let {name, screen_name, profile_image_url} = tweets.user;
           results.push({
             text,
             created_at,
+            id_str,
             name,
             screen_name,
             profile_image_url

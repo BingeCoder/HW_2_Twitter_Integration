@@ -1,4 +1,6 @@
-//@Author: Shivam Tomar
+/**
+ * @author Shivam Tomar
+ */
 var Twit = require('twit');
 var config = require('../config.js');
 
@@ -8,9 +10,9 @@ const deleteTwitter = (id) => {
     return new Promise((resolutionFunc, rejectionFunc) => {
         if(id){
             twitter.post('statuses/destroy/:id',
-                {id},
+                {id: id},
                 (error, data, response) => {
-                    if(error){
+                    if(error || !response){
                         console.log('Error deleting tweet');
                         rejectionFunc(error);
                     }
