@@ -14,10 +14,10 @@ app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.post('/post', function (req, res) {
-    const promise = postTweet(req.body)
+app.post('/post', function (req, res) {    
+    const promise = postTweet(req.body);
     promise.then((response)=>{
-        res.send("Message posted successfully.");
+        res.status(200).send(response);
     },(error)=>{
         res.send(error.body);
     });
@@ -26,11 +26,11 @@ app.post('/post', function (req, res) {
 /**
  * @author Shivam Tomar
  */
-app.delete('/delete/:id', (req, res) => {
-    console.log(`The deletion twitter id is: ${req.params.id}`);
-    const promise = deleteTweet(req.param.id);
+app.delete('/delete/:id', (req, res) => {    
+    console.log("----app.delete "+ req.params.id);
+    const promise = deleteTweet(req.params.id);
     promise.then((response)=>{
-        res.sendStatus(response.statusCode);
+        res.status(200).send(response);
     },(error)=>{
         res.send(error);
     });
@@ -47,4 +47,6 @@ app.get('/get', (req, res) => {
     });
 });
 
-var server = app.listen(3000);
+app.listen(3000, () => {
+    console.log('Listening at port 3000');
+});

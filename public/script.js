@@ -20,6 +20,8 @@
       },
     }).then(function (response) {      
       if (response.status == 200) {
+        // console.log(response.body);
+        // console.log(JSON.stringify(response.body));
         responseMsg.text("Post Tweeted Successfully");
       } else {
         responseMsg.text("Error occurred:" + response.statusText);
@@ -59,11 +61,11 @@
   const deleteTweetBtn = $("#deleteTweetBtn");
   const deleteClickHandler = () => {
     console.log(JSON.stringify(retrievedTweets));
-    fetch("/delete/1", {
+    fetch("/delete/"+ retrievedTweets[0].id_str, {
       method: "delete"    
     })
     .then((response) => {
-      if(response && response == 200){        
+      if(response.status == 200){        
         alert("Oldest Tweet delete success.");
       }
       else {
