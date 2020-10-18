@@ -3,15 +3,16 @@
  */
 
 const twit = require('twit');
-const request = require('supertest');
-const app = require('../app');
+const tweetDelete = require('../js/delete');
 
-jest.mock('twit', () => jest.fn());
-test('Tweet deletion', async () => {
-    const response = jest.fn(() => {status: 200});
-    twit.mockImplementation(() => ({post}))
-    const response = await request(app)
-        .delete('/delete/1')
-        
-    expect(response.status).toBe(200);
+
+// This test is based on negative approach. If fake tweet id is passed then it should send back error 404(not found).
+test('Tweet deletion', (done) => {
+    const fakeTweetId = '1';            
+    tweetDelete(fakeTweetId).then((response)=>{                
+        throw new Error('This is negative test and expected to fail!!');
+    },(error)=>{            
+        expect(error.statusCode).toBe(404);
+        done();        
+    });    
 });
